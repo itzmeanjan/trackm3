@@ -1,0 +1,73 @@
+<!DOCTYPE html>
+<html>
+
+<head>
+    <title>
+        trackm3
+    </title>
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=no">
+    <link rel="stylesheet" href="../styles/index.css">
+    <script src="../scripts/index.js"></script>
+    <link rel="stylesheet" href="https://unpkg.com/leaflet@1.4.0/dist/leaflet.css"
+        integrity="sha512-puBpdR0798OZvTTbP4A8Ix/l+A4dHDD0DGqYW6RQ+9jxkRFclaxxQb/SJAWZfWAkuyeQUytO7+7N4QKrDh+drA=="
+        crossorigin="" />
+    <script src="https://unpkg.com/leaflet@1.4.0/dist/leaflet.js"
+        integrity="sha512-QVftwZFqvtRNi0ZyCtsznlKSWOStnDORoefr1enyq5mVL4tmKB3S/EnC3rRJcxCPavG10IcrVGSmPh6Qw5lwrg=="
+        crossorigin=""></script>
+</head>
+
+<body>
+    <div id="parentDiv">
+        <div id="leftDiv">
+            <p>
+                trackm3
+            </p>
+            <hr>
+            <label for="longitude">Longitude</label><br>
+            <input id="longitude" type="number" min="-180" max="180" value="51.50853">
+            <label for="latitude">Latitude</label><br>
+            <input id="latitude" type="number" min="-90" max="90" value="-0.12574">
+            <label for="zoomLevel">Zoom Level</label><br>
+            <input id="zoomLevel" type="number" min="0" value="5">
+            <button id="findButton">
+                Find
+            </button>
+            <label for="serverIP">Server IP</label><br>
+            <input id="serverIP" type="text" width="90%" value="0.0.0.0">
+            <label for="serverPort">ServerPort</label><br>
+
+            <input id="serverPort" type="number" width="90%" value="8000" min="0" max="65536">
+            <button id="serverStartButton" value="1">
+                Start
+            </button>
+            <p id="serverStatus"></p>
+        </div>
+        <div id="rightDiv">
+            <!--Well this is where the map is displayed-->
+        </div>
+        <script>
+            let map = L.map('rightDiv').setView([51.50853, -0.12574], 5)
+            L.tileLayer('https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png', {
+                attribution: '&copy; <a href="https://www.openstreetmap.org/copyright">OpenStreetMap</a> contributors'
+            }).addTo(map)
+            map.on('zoom', (event) => {
+                let latlng = map.getCenter().wrap() // wraps longitude with in a range of -180 to +180
+                document.getElementById('latitude').value = latlng.lat
+                document.getElementById('longitude').value = latlng.lng
+                document.getElementById('zoomLevel').value = map.getZoom()
+            })
+            map.on('move', (event) => {
+                let latlng = map.getCenter().wrap() // wraps longitude with in a range of -180 to +180
+                document.getElementById('latitude').value = latlng.lat
+                document.getElementById('longitude').value = latlng.lng
+                document.getElementById('zoomLevel').value = map.getZoom()
+            })
+            map.on('click', (event) => {
+                L.popup().setLatLng(event.latlng).setContent(`<p>Current Location:<br> <b>${event.latlng.lat}, ${event.latlng.lng}</b></p>`).openOn(map)
+                map.setView([event.latlng.lat, event.latlng.lng], map.getZoom())
+            })
+        </script>
+    </div>
+</body>
+
+</html>

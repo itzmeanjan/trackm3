@@ -1,0 +1,37 @@
+{
+  "name": "trackm3",
+  "version": "1.0.0",
+  "description": "An Electron based desktop application, for live location tracking.",
+  "main": "main.js",
+  "scripts": {
+    "start": "electron .",
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/itzmeanjan/trackm3.git"
+  },
+  "keywords": [
+    "electron",
+    "node",
+    "javascript",
+    "location",
+    "gps",
+    "leaflet",
+    "track",
+    "flutter",
+    "websocket"
+  ],
+  "author": "Anjan Roy",
+  "license": "MIT",
+  "bugs": {
+    "url": "https://github.com/itzmeanjan/trackm3/issues"
+  },
+  "homepage": "https://github.com/itzmeanjan/trackm3#readme",
+  "devDependencies": {
+    "electron": "^4.1.4"
+  },
+  "dependencies": {
+    "express": "^4.16.4"
+  }
+}

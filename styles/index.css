@@ -1,0 +1,76 @@
+body {
+    margin: 0;
+    padding: 0;
+}
+
+html, body, #parentDiv, #rightDiv {
+    height: 100%;
+}
+
+#parentDiv {
+    display: flex;
+    background-color: #CEF6D8;
+}
+
+#leftDiv {
+    flex: 0 0 20%;
+    padding: 5px;
+    overflow-y: scroll;
+}
+
+#leftDiv::-webkit-scrollbar {
+    display: none;
+}
+
+#rightDiv {
+    flex: 1;
+}
+
+label {
+    margin-left: 3px;
+    font-size: x-small;
+    font-family: Arial, Helvetica, sans-serif;
+}
+
+#longitude, #latitude, #zoomLevel {
+    width: 90%;
+    margin-bottom: 5px;
+    margin-left: 3px;
+    border-radius: 15px;
+    border-width: 0px;
+    padding: 3px;
+}
+
+#findButton {
+    width: 70%;
+    border-radius: 15px;
+    border-width: 0px;
+    background-color: #04B4AE;
+    display: block;
+    margin: 0 auto;
+    padding: 5px;
+}
+
+#serverIP, #serverPort {
+    width: 90%;
+    margin-bottom: 5px;
+    margin-left: 3px;
+    border-radius: 15px;
+    border-width: 0px;
+    padding: 3px;
+}
+
+#serverStartButton {
+    width: 70%;
+    border-radius: 15px;
+    border-width: 0px;
+    background-color: #04B4AE;
+    display: block;
+    margin: 0 auto;
+    padding: 5px;
+}
+
+#serverStatus {
+    font-size: x-small;
+    font-family: Arial, Helvetica, sans-serif;
+}
