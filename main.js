@@ -31,9 +31,9 @@ ipcMain.on('initServer', (event, data) => {
     if (data === null) {
         server.close((e) => {
             if (e)
-                event.sender.send('initServerResp', e.message)
+                event.sender.send('initServer', e.message)
             else
-                event.sender.send('initServerResp', 'Server Stopped')
+                event.sender.send('initServer', 'Server Stopped')
         })
         expressApp = null
     }
@@ -42,11 +42,10 @@ ipcMain.on('initServer', (event, data) => {
         let serverPort = parseInt(data.serverPort)
         expressApp = express()
         expressApp.get('/', (req, res) => {
-            console.log(req.ip)
             res.status(200).send('hello').end()
         })
-        server = expressApp.listen(serverIP, serverPort, () => {
-            event.sender.send('initServerResp', 'Server Listening ...')
+        server = expressApp.listen(serverPort, serverIP, () => {
+            event.sender.send('initServer', 'Server Listening ...')
         })
     }
 })

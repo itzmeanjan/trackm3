@@ -1,6 +1,6 @@
 const { ipcRenderer } = require('electron')
 window.addEventListener('DOMContentLoaded', () => {
-    ipcRenderer.on('initServerResp', (event, data) => {
+    ipcRenderer.on('initServer', (event, data) => {
         document.getElementById('serverStatus').innerHTML = data // puts server status on screen
     })
     document.getElementById('findButton').onclick = () => {
