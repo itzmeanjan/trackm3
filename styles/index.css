@@ -73,4 +73,9 @@ label {
 #serverStatus {
     font-size: x-small;
     font-family: Arial, Helvetica, sans-serif;
+    text-align: center;
+}
+
+#clientsDiv {
+    width: 90%;
 }

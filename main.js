@@ -1,8 +1,7 @@
 const { app, BrowserWindow, ipcMain } = require('electron')
-const express = require('express')
+const server = require('./server')
 let currentWindow
-let expressApp
-let server
+let peerLocation = {}
 function windowMaker() {
     currentWindow = new BrowserWindow(
         {
@@ -22,30 +21,36 @@ app.on('ready', (launchInfo) => {
 })
 
 app.on('window-all-closed', () => {
-    server.close()
-    expressApp = null
+    server.stop()
     app.quit()
 })
 
 ipcMain.on('initServer', (event, data) => {
     if (data === null) {
-        server.close((e) => {
-            if (e)
-                event.sender.send('initServer', e.message)
-            else
-                event.sender.send('initServer', 'Server Stopped')
+        server.stop((key, val) => {
+            event.sender.send('initServer', val)
         })
-        expressApp = null
     }
     else {
         let serverIP = data.serverIP
         let serverPort = parseInt(data.serverPort)
-        expressApp = express()
-        expressApp.get('/', (req, res) => {
-            res.status(200).send('hello').end()
-        })
-        server = expressApp.listen(serverPort, serverIP, () => {
-            event.sender.send('initServer', 'Server Listening ...')
+        server.init(serverIP, serverPort, (key, val) => {
+            switch (key) {
+                case 'status':
+                    event.sender.send('initServer', val)
+                    break
+                default:
+                    if (val['status']) {
+                        event.sender.send('peerStatus', { 'id': key, 'status': val.status })
+                    }
+                    else {
+                        if (peerLocation[key])
+                            peerLocation[key].push(val.location)
+                        else
+                            peerLocation[key] = [val.location]
+                        event.sender.send('peerLocation', { 'id': key, 'location': val.location })
+                    }
+            }
         })
     }
 })

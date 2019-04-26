@@ -29,9 +29,8 @@
   },
   "homepage": "https://github.com/itzmeanjan/trackm3#readme",
   "devDependencies": {
-    "electron": "^4.1.4"
+    "electron": "^4.1.4",
+    "ws": "^6.2.1"
   },
-  "dependencies": {
-    "express": "^4.16.4"
-  }
+  "dependencies": {}
 }
