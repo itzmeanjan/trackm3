@@ -1,3 +1,5 @@
+<p align="center"><img src="/logo/logotype-vertical.png"></p>
+
 # trackm3
 A Live Location Tracker built with Electron, WebSocket &amp; Flutter
 
